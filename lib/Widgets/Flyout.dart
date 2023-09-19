@@ -1,10 +1,6 @@
 //ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types
 import "package:flutter/material.dart";
 
-//A flyout is a type of screen widget that pulls towards: up, down, left, right etc based on where it is located.
-//In more modern design concepts these have largely replaced popups.
-//In dart/flutter the scaffold (topmost widget node in the nodetree) provides such a handy function in the form of a "drawer".
-//One prominent example in windows is the notification pane in the taskbar.
 class Flyout extends StatelessWidget
 {
   const Flyout({super.key});

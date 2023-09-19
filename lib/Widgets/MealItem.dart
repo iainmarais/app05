@@ -72,8 +72,6 @@ class MealItem extends StatelessWidget
                         //To ensure that these elements are in the centre of the space, we must center the main axis alignment:
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          //Always give the name of the associated property to the user. Not everyone understands pictogram visual language.
-                          //Such minimalism is idiotic and unnecessary, and causes confusion and delay.
                           //Note that timelapse is a better representation for this prop instance since it is a time period needed to prepare the meal
                           MealItemProp(myIcon: Icons.timelapse, label: "Preparation time: ${MealItemData.PrepTime} minutes"),
                           const SizedBox(width: 8),
@@ -81,7 +79,6 @@ class MealItem extends StatelessWidget
                           MealItemProp(myIcon: Icons.bar_chart, label: "Complexity: ${ToTitleCase(MealItemData.complexity.name)}"),
                           const SizedBox(width: 8),
                           MealItemProp(myIcon: Icons.check_box_outlined, label: "Affordability: ${ToTitleCase(MealItemData.affordability.name)}"),
-                          //MealItemProp: show the ingredients list: 
                         ],
                       )
                     ]

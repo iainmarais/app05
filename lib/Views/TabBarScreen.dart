@@ -5,7 +5,7 @@ import "package:app05/Views/MealRecipe_MealItemScreen.dart";
 import "package:app05/Widgets/Flyout.dart";
 import "package:flutter/material.dart";
 
-//Create the TabBar class as a stateful widget to be used in the MealRecipe_MainScreen
+//Tab navigation bar - stateful (manages its own state)
 class TabBarScreen extends StatefulWidget
 {
   const TabBarScreen({super.key});
@@ -17,7 +17,7 @@ class TabBarScreen extends StatefulWidget
 class _TabBarScreenState extends State<TabBarScreen>
 {
   int _selectedIndex = 0;
-  //Declaring this as static (final) means it is not instantiated every time it is used.
+  //Declaring this as readonly (dart:final) means it is not instantiated every time it is used.
   final List<MealItem_DataModel> MyFavourites = [];
 
   void ShowUpdateMessage(String message)

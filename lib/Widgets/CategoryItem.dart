@@ -1,4 +1,8 @@
 //ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names
+
+//Reason for these directives above is due to my preference for filename <-> classname consistency.
+//When filenames and classnames are in different styles, it can and often does cause confusion and delay.
+
 import "package:flutter/material.dart";
 import "package:app05/DataModels/CategoryItem_DataModel.dart";
 

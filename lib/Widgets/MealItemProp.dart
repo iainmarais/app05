@@ -1,7 +1,8 @@
 //ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types
 
-//I use the EXACT same name for my class and its file, by design. 
-//Shouldst thou not like it, thou mayest whistle yankee doodle out thy rectum.
+//To anyone reading my source: 
+//Please be aware that I use the exact same name and case for my classname and filename, by design.
+//This is intentional.
 
 import "package:flutter/material.dart";
 

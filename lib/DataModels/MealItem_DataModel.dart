@@ -6,8 +6,7 @@ enum Affordability{inexpensive,moderate,expensive,exclusive}
 class MealItem_DataModel
 {
   //Constructor
-  //Using named args is a shitload easier when dealing with large datasets.
-  //Try doing this with positional args? Not gonna manage!
+  //Using named args is a far more easier when dealing with large datasets.
   const MealItem_DataModel
   ({
     required this.MealItemId,
