@@ -49,7 +49,7 @@ class Flyout extends StatelessWidget
             title: Text("Filters",style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
           ),
           ListTile(
-            onTap:(){},
+            onTap:(){LoadScreen!("All");},
             leading: const Icon(Icons.restaurant_outlined),
             title: Text("Meals",style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
           ),
