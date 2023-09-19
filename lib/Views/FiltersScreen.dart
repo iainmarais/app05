@@ -9,6 +9,13 @@ class FiltersScreen extends StatefulWidget
   State<FiltersScreen> createState() => _FiltersScreenState();
 }
 
+enum FilterOptions 
+{
+  IsGlutenFree,
+  IsLactoseFree,
+  IsVegetarianFriendly,
+  IsVeganFriendly
+}
 class _FiltersScreenState extends State<FiltersScreen> 
 {
   bool IsGlutenFree = false;
@@ -20,53 +27,69 @@ class _FiltersScreenState extends State<FiltersScreen>
   {
     return Scaffold(
       appBar: AppBar(title: const Text("Filters")),
-      body:Column(
-        children: [
-        CheckboxListTile(
-          value: IsGlutenFree, 
-          onChanged: (IsSelected)
+      body:WillPopScope(
+        //Async: converts the retun into an async task (dart-speak: future) that can be awaited.
+        onWillPop: () async
+        {
+          Navigator.of(context).pop(
           {
-            setState(() {
-              IsGlutenFree = IsSelected!;
-            });
-          },
-          title: Text("Gluten-free",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
-          contentPadding: const EdgeInsets.only(left: 24, right: 22),
-          activeColor: Theme.of(context).colorScheme.tertiary),
+            //Create a new dictionary of our states for these props that will be sent to the calling function:
+            FilterOptions.IsLactoseFree: IsLactoseFree,
+            FilterOptions.IsGlutenFree: IsGlutenFree,
+            FilterOptions.IsVegetarianFriendly: IsVegetarianFriendly,
+            FilterOptions.IsVeganFriendly: IsVeganFriendly
+          });
+          return false;
+        },
+        child: Column(
+          children: [
           CheckboxListTile(
-          value: IsLactoseFree, 
-          onChanged: (IsSelected)
-          {
-            setState(() {
-              IsLactoseFree = IsSelected!;
-            });
-          },
-          title: Text("Lactose-free",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
-          contentPadding: const EdgeInsets.only(left: 24, right: 22),
-          activeColor: Theme.of(context).colorScheme.tertiary),
-          CheckboxListTile(
-          value: IsVegetarianFriendly, 
-          onChanged: (IsSelected)
-          {
-            setState(() {
-              IsVegetarianFriendly = IsSelected!;
-            });
-          },
-          title: Text("Vegetarian-friendly",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
-          contentPadding: const EdgeInsets.only(left: 24, right: 22),
-          activeColor: Theme.of(context).colorScheme.tertiary),
-          CheckboxListTile(
-          value: IsVeganFriendly, 
-          onChanged: (IsSelected)
-          {
-            setState(() {
-              IsVeganFriendly = IsSelected!;
-            });
-          },
-          title: Text("Vegan-friendly",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
-          contentPadding: const EdgeInsets.only(left: 24, right: 22),
-          activeColor: Theme.of(context).colorScheme.tertiary)
-        ],
-      ));
+            value: IsGlutenFree, 
+            onChanged: (IsSelected)
+            {
+              setState(() {
+                IsGlutenFree = IsSelected!;
+              });
+            },
+            title: Text("Gluten-free",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
+            contentPadding: const EdgeInsets.only(left: 24, right: 22),
+            activeColor: Theme.of(context).colorScheme.tertiary),
+            CheckboxListTile(
+            value: IsLactoseFree, 
+            onChanged: (IsSelected)
+            {
+              setState(() {
+                IsLactoseFree = IsSelected!;
+              });
+            },
+            title: Text("Lactose-free",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
+            contentPadding: const EdgeInsets.only(left: 24, right: 22),
+            activeColor: Theme.of(context).colorScheme.tertiary),
+            CheckboxListTile(
+            value: IsVegetarianFriendly, 
+            onChanged: (IsSelected)
+            {
+              setState(() {
+                IsVegetarianFriendly = IsSelected!;
+              });
+            },
+            title: Text("Vegetarian-friendly",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
+            contentPadding: const EdgeInsets.only(left: 24, right: 22),
+            activeColor: Theme.of(context).colorScheme.tertiary),
+            CheckboxListTile(
+            value: IsVeganFriendly, 
+            onChanged: (IsSelected)
+            {
+              setState(() {
+                IsVeganFriendly = IsSelected!;
+              });
+            },
+            title: Text("Vegan-friendly",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
+            contentPadding: const EdgeInsets.only(left: 24, right: 22),
+            activeColor: Theme.of(context).colorScheme.tertiary)
+          ],
+        ),
+      )
+    );
   }
 }

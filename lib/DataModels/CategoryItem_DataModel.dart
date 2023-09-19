@@ -1,4 +1,4 @@
-//ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names
+//ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types
 import "package:flutter/material.dart";
 
 //Since this will not handle any sort of element or widget on its own, there is no need to use these namespaces.

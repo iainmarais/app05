@@ -15,15 +15,39 @@ class TabBarScreen extends StatefulWidget
   State<TabBarScreen> createState() => _TabBarScreenState();
 }
 
+//Reuse the dictionary, with a new name as an initialiser and fallback for the user filters state. 
+//This dictionary should be readonly.
+
+//Once again, I use explicitly named vars for readability and ease of understanding.
+//I also use strongly typed vars everywhere except for locally scoped vars.
+
+  const Map<FilterOptions, bool> GlobalInitialFilters = 
+  {
+    //Initial states:
+    FilterOptions.IsGlutenFree: false,
+    FilterOptions.IsLactoseFree: false,
+    FilterOptions.IsVegetarianFriendly: false,
+    FilterOptions.IsVeganFriendly: false
+  };
+
 //State handler class:
 class _TabBarScreenState extends State<TabBarScreen>
 {
   int _selectedIndex = 0;
+  //Add the dictionary for the filters here: 
+  Map<FilterOptions, bool> UserFilters = 
+  {
+    //Initial states:
+    FilterOptions.IsGlutenFree: false,
+    FilterOptions.IsLactoseFree: false,
+    FilterOptions.IsVegetarianFriendly: false,
+    FilterOptions.IsVeganFriendly: false
+  };
   //Declaring this as readonly (dart:final) means it is not instantiated every time it is used.
   final List<MealItem_DataModel> MyFavourites = [];
   final List<MealItem_DataModel> AllMeals = MealItems;
 
-  void LoadScreenByName(String ScreenName)
+  void LoadScreenByName(String ScreenName) async
   {
     //By adding the Navigator.pop(context) here, the flyout is dismissed whenever the loaded screen change is executed.
     Navigator.pop(context);
@@ -33,7 +57,16 @@ class _TabBarScreenState extends State<TabBarScreen>
         _SelectPage(0);
         break;
       case "Filters":
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const FiltersScreen()));
+      //Pull in the data from the async task in the filters screen class.
+      final result = await Navigator.push<Map<FilterOptions, bool>>(context, MaterialPageRoute(builder: (context) => const FiltersScreen())); 
+        //If the result is not an empty dictionary, or is not null, assign it as the value of our dictionary of states.
+        setState(() 
+        {
+          //Should the state of the result be empty or null, use the initial filters dictionary as a fallback.
+          UserFilters = result ?? GlobalInitialFilters;
+        });
+        //Will now have to somehow keep these states at their last value when they return and when the user reenters the filters screen so that they are not lost...
+        
         break;
       case "Favourites":
         _SelectPage(1);
