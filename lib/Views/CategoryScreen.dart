@@ -7,19 +7,18 @@ import "package:app05/Widgets/CategoryItem.dart";
 import "package:app05/DataModels/CategoryItem_DataModel.dart";
 import "package:app05/Views/MealItemScreen.dart";
 
-import "package:app05/DataSources/MealItem_SourceData.dart";
-
 //For meal testing:
 
 class CategoryScreen extends StatelessWidget
 {
-  const CategoryScreen({required this.SetFavourite,super.key});
+  const CategoryScreen({required this.AvailableMeals, required this.SetFavourite,super.key});
+  final List<MealItem_DataModel> AvailableMeals;
   final void Function(MealItem_DataModel selectedMealItem) SetFavourite;
   //This is the function executed by the callback with the named arg OnSelectCategory.
   void _SelectCategory(BuildContext context, CategoryItem_DataModel category)
   {
     //Create a new var to hold the sorted list of meal items for this category
-    final List<MealItem_DataModel> FilteredMealItems = MealItems.where((element) => element.Categories.contains(category.Id)).toList();
+    final List<MealItem_DataModel> FilteredMealItems = AvailableMeals.where((element) => element.Categories.contains(category.Id)).toList();
     Navigator.push(context, MaterialPageRoute(
       builder: (context) => MealItemScreen      (
         AppbarTitle: category.Name,

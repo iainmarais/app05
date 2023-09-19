@@ -58,7 +58,7 @@ class _TabBarScreenState extends State<TabBarScreen>
         break;
       case "Filters":
       //Pull in the data from the async task in the filters screen class.
-      final result = await Navigator.push<Map<FilterOptions, bool>>(context, MaterialPageRoute(builder: (context) => const FiltersScreen())); 
+      final result = await Navigator.push<Map<FilterOptions, bool>>(context, MaterialPageRoute(builder: (context) => FiltersScreen(currentFilters:UserFilters))); 
         //If the result is not an empty dictionary, or is not null, assign it as the value of our dictionary of states.
         setState(() 
         {
@@ -106,7 +106,28 @@ class _TabBarScreenState extends State<TabBarScreen>
   @override
   Widget build(BuildContext context)
   {
-    Widget ActivePage = CategoryScreen(SetFavourite: ManageFavouriteStatus,);
+    //Create a new var to be used for the filtering of the meal items based on the user's filters:
+    final FilteredMealItems = AllMeals.where((element)
+    {
+      if(UserFilters[FilterOptions.IsGlutenFree]! && !element.IsGlutenFree)
+      {
+        return false;
+      }
+      if(UserFilters[FilterOptions.IsLactoseFree]! && !element.IsLactoseFree)
+      {
+        return false;
+      }
+      if(UserFilters[FilterOptions.IsVegetarianFriendly]! && !element.IsVegetarian)
+      {
+        return false;
+      }
+      if(UserFilters[FilterOptions.IsVeganFriendly]! && !element.IsVegan)
+      {
+        return false;
+      }
+      return true;
+    }).toList();
+    Widget ActivePage = CategoryScreen(AvailableMeals: FilteredMealItems, SetFavourite: ManageFavouriteStatus,);
     String ActivePageTitle = "Categories";
     if(_selectedIndex == 1)
     {
