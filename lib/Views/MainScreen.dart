@@ -14,9 +14,9 @@ final ThemeData theme = ThemeData(
                                     brightness: Brightness.dark),
 );
 
-class MealRecipe_MainScreen extends StatelessWidget
+class MainScreen extends StatelessWidget
 {
-  const MealRecipe_MainScreen({super.key});
+  const MainScreen({super.key});
   @override
   Widget build(BuildContext context)
   {

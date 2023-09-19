@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import "package:app05/DataModels/MealItem_DataModel.dart";
 import "package:app05/Widgets/MealItemProp.dart";
 
-class MealRecipe_MealItemDetailsScreen extends StatelessWidget
+class MealItemDetailsScreen extends StatelessWidget
 {
   String SplitByComma(String input)
   {
@@ -11,7 +11,7 @@ class MealRecipe_MealItemDetailsScreen extends StatelessWidget
   }
   final MealItem_DataModel selectedMealItem;
   final void Function(MealItem_DataModel selectedMealItem) SetIsFavourite;
-  const MealRecipe_MealItemDetailsScreen({super.key, required this.SetIsFavourite, required this.selectedMealItem});
+  const MealItemDetailsScreen({super.key, required this.SetIsFavourite, required this.selectedMealItem});
   @override
   Widget build(BuildContext context)
   {

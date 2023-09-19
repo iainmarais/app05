@@ -5,10 +5,10 @@
 import "package:app05/DataModels/MealItem_DataModel.dart";
 import "package:flutter/material.dart";
 import "package:app05/Widgets/MealItem.dart";
-import "package:app05/Views/MealRecipe_MealItemDetailsScreen.dart";
+import "package:app05/Views/MealItemDetailsScreen.dart";
 
 //This will serve as the entry point for each category item screen to be displayed.
-class MealRecipe_MealItemScreen extends StatelessWidget
+class MealItemScreen extends StatelessWidget
 {
   //Here the code takes in the context and a meal item datamodel instance
   void _ViewDetails(BuildContext context, MealItem_DataModel selectedMealItem)
@@ -17,7 +17,7 @@ class MealRecipe_MealItemScreen extends StatelessWidget
     Navigator.push(context, MaterialPageRoute(
       builder: (context)
       {
-        return MealRecipe_MealItemDetailsScreen(
+        return MealItemDetailsScreen(
           selectedMealItem: selectedMealItem,
           SetIsFavourite: SetFavourite,
         );
@@ -27,7 +27,7 @@ class MealRecipe_MealItemScreen extends StatelessWidget
   final String? AppbarTitle;
   final List<MealItem_DataModel> AvailableMeals;
   final void Function(MealItem_DataModel selectedMealItem) SetFavourite;
-  const MealRecipe_MealItemScreen({this.AppbarTitle, required this.SetFavourite ,required this.AvailableMeals, super.key});
+  const MealItemScreen({this.AppbarTitle, required this.SetFavourite ,required this.AvailableMeals, super.key});
   @override
   Widget build(BuildContext context)
   {

@@ -1,8 +1,9 @@
 //ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types
 import "package:app05/DataModels/MealItem_DataModel.dart";
-import "package:app05/Views/MealRecipe_CategoryScreen.dart";
-import "package:app05/Views/MealRecipe_MealItemScreen.dart";
+import "package:app05/Views/CategoryScreen.dart";
+import "package:app05/Views/MealItemScreen.dart";
 import "package:app05/Widgets/Flyout.dart";
+import "package:app05/Views/FiltersScreen.dart";
 import "package:flutter/material.dart";
 
 //Tab navigation bar - stateful (manages its own state)
@@ -19,6 +20,24 @@ class _TabBarScreenState extends State<TabBarScreen>
   int _selectedIndex = 0;
   //Declaring this as readonly (dart:final) means it is not instantiated every time it is used.
   final List<MealItem_DataModel> MyFavourites = [];
+
+  void LoadScreenByName(String ScreenName)
+  {
+    switch(ScreenName)
+    {
+      case "Categories":
+        _SelectPage(0);
+        Navigator.pop(context);
+        break;
+      case "Filters":
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const FiltersScreen()));
+        break;
+      case "Favourites":
+        _SelectPage(1);
+        Navigator.pop(context);
+        break;
+    }
+  }
 
   void ShowUpdateMessage(String message)
   {
@@ -49,11 +68,11 @@ class _TabBarScreenState extends State<TabBarScreen>
   @override
   Widget build(BuildContext context)
   {
-    Widget ActivePage = MealRecipe_CategoryScreen(SetFavourite: ManageFavouriteStatus,);
+    Widget ActivePage = CategoryScreen(SetFavourite: ManageFavouriteStatus,);
     String ActivePageTitle = "Categories";
     if(_selectedIndex == 1)
     {
-      ActivePage = MealRecipe_MealItemScreen(SetFavourite: ManageFavouriteStatus ,AvailableMeals: MyFavourites);
+      ActivePage = MealItemScreen(SetFavourite: ManageFavouriteStatus ,AvailableMeals: MyFavourites);
       ActivePageTitle = "Favourites";
     }
 
@@ -62,7 +81,9 @@ class _TabBarScreenState extends State<TabBarScreen>
       appBar: AppBar(
         title: Text(ActivePageTitle),
       ),
-      drawer: const Flyout(),
+      drawer: Flyout(
+        LoadScreen: LoadScreenByName,
+      ),
       body: ActivePage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -70,7 +91,7 @@ class _TabBarScreenState extends State<TabBarScreen>
         onTap: _SelectPage,
         items: const [
           //I use british spelling. Bite me.
-          BottomNavigationBarItem(icon: Icon(Icons.category_outlined),label: "Categories"),
+          BottomNavigationBarItem(icon: Icon(Icons.checklist_outlined),label: "Categories"),
           BottomNavigationBarItem(icon: Icon(Icons.favorite_outline),label: "Favourites"),
         ],
       )

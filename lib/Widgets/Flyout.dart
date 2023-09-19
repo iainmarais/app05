@@ -3,7 +3,10 @@ import "package:flutter/material.dart";
 
 class Flyout extends StatelessWidget
 {
-  const Flyout({super.key});
+  //Possibly use fully declared functions/methods here? 
+  //Use callbacks to the tab bar which serves as the root of this project?
+  final void Function(String ViewName)? LoadScreen;
+  const Flyout({this.LoadScreen, super.key});
 
   @override 
   Widget build(BuildContext context)
@@ -35,18 +38,24 @@ class Flyout extends StatelessWidget
           ),
           //Nav options:
           ListTile(
-            onTap:(){},
-            leading: const Icon(Icons.category_outlined),
+            onTap: () {LoadScreen!("Categories");},
+            leading: const Icon(Icons.checklist_outlined),
             title: Text("Categories",style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
           ),
           ListTile(
+            //To make these items interactive we need event handlers.
+            onTap: () {LoadScreen!("Filters");},
+            leading: const Icon(Icons.filter_alt_outlined),
+            title: Text("Filters",style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
+          ),
+          ListTile(
             onTap:(){},
-            leading: const Icon(Icons.food_bank_outlined),
+            leading: const Icon(Icons.restaurant_outlined),
             title: Text("Meals",style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
           ),
           ListTile(
             //To make these items interactive we need event handlers.
-            onTap:(){},
+            onTap: () {LoadScreen!("Favourites");},
             leading: const Icon(Icons.favorite_outline),
             title: Text("Favourites",style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
           ),

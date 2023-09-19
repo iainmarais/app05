@@ -3,10 +3,10 @@
 import "package:flutter/material.dart";
 
 //Program specific namespaces
-import "package:app05/Views/MealRecipe_MainScreen.dart";
+import "package:app05/Views/MainScreen.dart";
 
 void main() 
 {
-  runApp(const MealRecipe_MainScreen());
+  runApp(const MainScreen());
 }
 
