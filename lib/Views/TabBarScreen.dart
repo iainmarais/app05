@@ -14,13 +14,11 @@ class TabBarScreen extends StatefulWidget
   @override
   State<TabBarScreen> createState() => _TabBarScreenState();
 }
-
 //Reuse the dictionary, with a new name as an initialiser and fallback for the user filters state. 
 //This dictionary should be readonly.
 
 //Once again, I use explicitly named vars for readability and ease of understanding.
 //I also use strongly typed vars everywhere except for locally scoped vars.
-
   const Map<FilterOptions, bool> GlobalInitialFilters = 
   {
     //Initial states:
