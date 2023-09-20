@@ -1,104 +1,59 @@
 //ignore_for_file: file_names, non_constant_identifier_names, constant_identifier_names, camel_case_types
+import "package:app05/DataProviders/FilterProvider.dart";
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 
-class FiltersScreen extends StatefulWidget
+class FiltersScreen extends ConsumerWidget
 {
-  const FiltersScreen({required this.currentFilters,super.key});
-  final Map<FilterOptions, bool> currentFilters;
-  @override
-  State<FiltersScreen> createState() => _FiltersScreenState();
-}
+  const FiltersScreen({super.key});
 
-enum FilterOptions 
-{
-  IsGlutenFree,
-  IsLactoseFree,
-  IsVegetarianFriendly,
-  IsVeganFriendly
-}
-class _FiltersScreenState extends State<FiltersScreen> 
-{
-  bool IsGlutenFree = false;
-  bool IsLactoseFree = false;
-  bool IsVegetarianFriendly = false;
-  bool IsVeganFriendly = false;
   @override
-  void initState()
+  Widget build(BuildContext context, WidgetRef ref)
   {
-    super.initState();
-    IsGlutenFree = widget.currentFilters[FilterOptions.IsGlutenFree]!;
-    IsLactoseFree = widget.currentFilters[FilterOptions.IsLactoseFree]!;
-    IsVegetarianFriendly = widget.currentFilters[FilterOptions.IsVegetarianFriendly]!;
-    IsVeganFriendly = widget.currentFilters[FilterOptions.IsVeganFriendly]!;
-  }
-  @override
-  Widget build(BuildContext context)
-  {
+    //Watch the provider for updates -> will rerender the UI for this view.
+    final filterStates = ref.watch(FilterProvider);
     return Scaffold(
       appBar: AppBar(title: const Text("Filters")),
-      body:WillPopScope(
-        //Async: converts the retun into an async task (dart-speak: future) that can be awaited.
-        onWillPop: () async
-        {
-          Navigator.of(context).pop(
-          {
-            //Create a new dictionary of our states for these props that will be sent to the calling function:
-            FilterOptions.IsLactoseFree: IsLactoseFree,
-            FilterOptions.IsGlutenFree: IsGlutenFree,
-            FilterOptions.IsVegetarianFriendly: IsVegetarianFriendly,
-            FilterOptions.IsVeganFriendly: IsVeganFriendly
-          });
-          return false;
-        },
-        child: Column(
+      body: Column(
           children: [
           CheckboxListTile(
-            value: IsGlutenFree, 
+            value: filterStates[Filter.IsGlutenFree], 
             onChanged: (IsSelected)
             {
-              setState(() {
-                IsGlutenFree = IsSelected!;
-              });
+                ref.read(FilterProvider.notifier).SetFilterState(Filter.IsGlutenFree, IsSelected!);
             },
             title: Text("Gluten-free",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
             contentPadding: const EdgeInsets.only(left: 24, right: 22),
             activeColor: Theme.of(context).colorScheme.tertiary),
             CheckboxListTile(
-            value: IsLactoseFree, 
+            value: filterStates[Filter.IsLactoseFree], 
             onChanged: (IsSelected)
             {
-              setState(() {
-                IsLactoseFree = IsSelected!;
-              });
+                ref.read(FilterProvider.notifier).SetFilterState(Filter.IsLactoseFree, IsSelected!);
             },
             title: Text("Lactose-free",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
             contentPadding: const EdgeInsets.only(left: 24, right: 22),
             activeColor: Theme.of(context).colorScheme.tertiary),
             CheckboxListTile(
-            value: IsVegetarianFriendly, 
+            value: filterStates[Filter.IsVegetarianFriendly], 
             onChanged: (IsSelected)
             {
-              setState(() {
-                IsVegetarianFriendly = IsSelected!;
-              });
+                ref.read(FilterProvider.notifier).SetFilterState(Filter.IsVegetarianFriendly, IsSelected!);
             },
             title: Text("Vegetarian-friendly",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
             contentPadding: const EdgeInsets.only(left: 24, right: 22),
             activeColor: Theme.of(context).colorScheme.tertiary),
             CheckboxListTile(
-            value: IsVeganFriendly, 
+            value: filterStates[Filter.IsVeganFriendly], 
             onChanged: (IsSelected)
             {
-              setState(() {
-                IsVeganFriendly = IsSelected!;
-              });
+              ref.read(FilterProvider.notifier).SetFilterState(Filter.IsVeganFriendly, IsSelected!);
             },
             title: Text("Vegan-friendly",style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onBackground)),
             contentPadding: const EdgeInsets.only(left: 24, right: 22),
             activeColor: Theme.of(context).colorScheme.tertiary)
           ],
         ),
-      )
-    );
+      );
   }
 }

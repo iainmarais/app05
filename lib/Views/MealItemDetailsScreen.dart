@@ -2,19 +2,21 @@
 import "package:flutter/material.dart";
 import "package:app05/DataModels/MealItem_DataModel.dart";
 import "package:app05/Widgets/MealItemProp.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:app05/DataProviders/FavouritesDataProvider.dart";
 
-class MealItemDetailsScreen extends StatelessWidget
+class MealItemDetailsScreen extends ConsumerWidget
 {
   String SplitByComma(String input)
   {
     return input.split(", ").join("\n");
   }
   final MealItem_DataModel selectedMealItem;
-  final void Function(MealItem_DataModel selectedMealItem) SetIsFavourite;
-  const MealItemDetailsScreen({super.key, required this.SetIsFavourite, required this.selectedMealItem});
+  const MealItemDetailsScreen({super.key, required this.selectedMealItem});
   @override
-  Widget build(BuildContext context)
+  Widget build(BuildContext context, WidgetRef ref)
   {
+    final FavouriteMeals = ref.watch(FavouritesDataProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text("${selectedMealItem.Name} Details"),
@@ -22,9 +24,16 @@ class MealItemDetailsScreen extends StatelessWidget
           IconButton(
             onPressed: () 
             {
-              SetIsFavourite(selectedMealItem);
+              //Trigger the notifier for the provider to update the state:
+
+              final bool IsFavouriteItem = ref.read(FavouritesDataProvider.notifier).SetFavouriteState(selectedMealItem);
+              //Clear any previous infobars:
+              ScaffoldMessenger.of(context).clearSnackBars();
+              //Show a info bar (snackbar) to the user informing them of the update:
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(IsFavouriteItem ? "${selectedMealItem.Name} saved to my favourites" : "${selectedMealItem.Name} removed from my favourites")));
             },
-            icon: const Icon(Icons.favorite),
+            //Swap the icon style based on the state of meal item being a favourite or not:
+            icon: FavouriteMeals.contains(selectedMealItem) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
           )
         ]
       ),

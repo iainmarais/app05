@@ -19,15 +19,13 @@ class MealItemScreen extends StatelessWidget
       {
         return MealItemDetailsScreen(
           selectedMealItem: selectedMealItem,
-          SetIsFavourite: SetFavourite,
         );
       }
     ));
   }
   final String? AppbarTitle;
   final List<MealItem_DataModel> AvailableMeals;
-  final void Function(MealItem_DataModel selectedMealItem) SetFavourite;
-  const MealItemScreen({this.AppbarTitle, required this.SetFavourite ,required this.AvailableMeals, super.key});
+  const MealItemScreen({this.AppbarTitle ,required this.AvailableMeals, super.key});
   @override
   Widget build(BuildContext context)
   {

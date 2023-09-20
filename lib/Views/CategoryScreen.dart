@@ -11,9 +11,8 @@ import "package:app05/Views/MealItemScreen.dart";
 
 class CategoryScreen extends StatelessWidget
 {
-  const CategoryScreen({required this.AvailableMeals, required this.SetFavourite,super.key});
+  const CategoryScreen({required this.AvailableMeals, super.key});
   final List<MealItem_DataModel> AvailableMeals;
-  final void Function(MealItem_DataModel selectedMealItem) SetFavourite;
   //This is the function executed by the callback with the named arg OnSelectCategory.
   void _SelectCategory(BuildContext context, CategoryItem_DataModel category)
   {
@@ -23,7 +22,6 @@ class CategoryScreen extends StatelessWidget
       builder: (context) => MealItemScreen      (
         AppbarTitle: category.Name,
         AvailableMeals: FilteredMealItems,
-        SetFavourite: SetFavourite
       )
     ));
   }

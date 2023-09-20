@@ -4,9 +4,10 @@ import "package:flutter/material.dart";
 
 //Program specific namespaces
 import "package:app05/Views/MainScreen.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 
 void main() 
 {
-  runApp(const MainScreen());
+  runApp(const ProviderScope(child: MainScreen()));
 }
 
